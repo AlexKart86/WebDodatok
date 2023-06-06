@@ -6,10 +6,31 @@
 <div>
     <h2>Перелік бронювань </h2>
     <table class="table">
+        <thead>
+            <th scope="col">ПІБ клієнта</th>
+            <th scope="col">Телефон</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Дата подання</th>
+            <th scope="col">Будинок</th>
+            <th scope="col">Період проживання</th>
+            <th scope="col">Коментар</th>
+            <th scope="col">Статус заяви</th>
+            <th scope="col">Дії</th>
+        </thead>
 
     @foreach(var item in Model)
     {
-        
+        <tr>    
+            <td>@item.ClientPIB</td>
+            <td>@item.ClientPhone</td>
+            <td>@item.ClientEmail</td>
+            <td>@item.DateCreatedStr</td>
+            <td>@item.HouseName</td>
+            <td>@item.DateStartStr - @item.DateEndStr</td>
+            <td>@item.Comment</td>
+            <td>@item.StatusName</td>
+
+        </tr>
     }
     </table>
 </div>

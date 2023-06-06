@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System;
 using Microsoft.AspNetCore.Authentication;
+using Karpaty.ViewModels;
 
 namespace Karpaty.Controllers
 {
@@ -46,7 +47,24 @@ namespace Karpaty.Controllers
         [Authorize]
         public IActionResult Bookings()
         {
-            return View();
+            var model = _context.Bookings
+                .OrderByDescending(x => x.DateCreated)
+                .Join(_context.Houses, b => b.HouseId, h => h.HouseId, (b, h) =>  
+                    new BookingTableItem()
+                        {
+                            
+                            ClientPIB = b.ClientPIB,
+                            ClientEmail = b.ClientEmail,
+                            ClientPhone = b.ClientPhone,
+                            HouseName = h.Name,
+                            StatusId = b.StatusId,
+                            DateCreated = b.DateCreated,
+                            DateStart = b.DateStart,
+                            DateEnd = b.DateEnd,
+                            Comment = b.Comment,
+                        })
+                .ToList();
+            return View(model);
         }
 
         [HttpGet]

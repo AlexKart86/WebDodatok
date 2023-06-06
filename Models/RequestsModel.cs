@@ -17,8 +17,8 @@ namespace Karpaty.Models
         public DateTime? DateEnd { get; set; }
         public int? HouseId { get; set; }
         public int? RoomId { get; set; }
-        public DateTime DateCreated { get; set; }
-        public string Comment { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public string? Comment { get; set; }
         public int? StatusId { get; set; }
 
 

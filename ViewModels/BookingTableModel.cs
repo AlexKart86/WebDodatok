@@ -16,10 +16,36 @@ namespace Karpaty.ViewModels
             return DateStart?.ToString("dd.MM.yyyy")??"";
         } } 
         public DateTime? DateEnd { get; set; }
+        public string DateEndStr
+        {
+            get
+            {
+                return DateEnd?.ToString("dd.MM.yyyy") ?? "";
+            }
+        }
         public int? HouseId { get; set; }
+        public string HouseName { get; set; }
         public int? RoomId { get; set; }
-        public DateTime DateCreated { get; set; }
-        public string Comment { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public string DateCreatedStr
+        {
+            get
+            {
+                return DateCreated?.ToString("dd.MM.yyyy HH:mm:ss") ?? "";
+            }
+        }
+        public string? Comment { get; set; }
         public int? StatusId { get; set; }
+        public string StatusName { get
+            {
+                switch(StatusId)
+                {
+                    case 0: return "Нова";
+                    case -1: return "Скасовано";
+                    case 1: return "Підтверджено";
+                    default: return "";
+                }
+            }
+        }
     }
 }
