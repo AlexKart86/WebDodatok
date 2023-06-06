@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Авторизація";
+}
+@model Karpaty.ViewModels.LoginModel
+
+<style>
+    .add-request {
+        color: black;
+        padding: 1em;
+    }
+
+</style>
+
+<div class="container">
+    <h4 class="add-request">Авторизація для отримання адміністративного доступу</h4>
+    @using (Html.BeginForm("Auth", "Admin", FormMethod.Post, new { @class = "needs-validation", @novalidate = "true", @style="max-width: 500px" }))
+    {
+        <div class="row mb-3">
+            <div class="col">
+                <div class="col">
+                    @Html.LabelFor(x=>x.UserName)
+                    @Html.TextBoxFor(x => x.UserName, new {@class="form-control", required="true"})
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <div class="form-group">
+                    @Html.LabelFor(x=>x.UserPassword)
+                    @Html.TextBoxFor(x => x.UserPassword, new {@class="form-control", required="true", type="password"})
+                </div>
+            </div>
+        </div>
+
+        <div class="text-danger">
+            @TempData["error"]
+        </div>
+        
+
+        <div class="form-row">
+            <div class="col-sm-12" style="display: flex; gap: 3em">
+                <button type="submit" class="btn btn-primary">Увійти</button>
+                <a href="/" class="btn">На головну сторінку</a>
+            </div>
+        </div>
+    }
+    
+</div>
+

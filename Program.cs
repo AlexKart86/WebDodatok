@@ -1,4 +1,5 @@
 using Karpaty.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +13,15 @@ builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServe
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// аутентификация с помощью куки
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options => options.LoginPath = "/Admin/Login");
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
+
+app.UseAuthentication();   // добавление middleware аутентификации 
+app.UseAuthorization();   // добавление middleware авторизации 
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -17,7 +17,14 @@
 </head>
 <body>
     <header id="header" class="header">
+        <div style="display: flex; justify-content: space-between">
         <img src="~/img/logo.png" alt="Hoverla" class="logo">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a href="/Admin/Logout" class="btn" style="padding-right: 2em">Вийти</a>
+        }
+        </div>
+        
         @if (ViewBag?.IsShowWelcomeTitle  == "1")
         {
             <div class="container">
@@ -47,10 +54,14 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
+        <div class="container" style="display: flex; justify-content: space-between">
             <p class="credits">
                 © Kadema Viktoriia Ukraine Kyiv 2022
             </p>
+            @if (ViewBag?.IsShowAdminLogin == "1")
+            {
+                <a href="/Admin/Login/">Вхід для адміністратора</a>
+            }
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -73,6 +84,7 @@
 
 
         $(function () {
+            //datepicker adjastments
             const elems = document.querySelectorAll('.datepicker_input');
             for (const elem of elems) {
                 const datepicker = new Datepicker(elem, {
@@ -82,6 +94,22 @@
                     title: getDatePickerTitle(elem)
                 });
             }
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+
         })
     </script>
 

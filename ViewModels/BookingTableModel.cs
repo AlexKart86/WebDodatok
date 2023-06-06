@@ -1,10 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Karpaty.Models
+namespace Karpaty.ViewModels
 {
-
-
-    public class Booking
+    public class BookingTableItem
     {
         [Key]
         public int RequestId { get; set; }
@@ -14,13 +12,14 @@ namespace Karpaty.Models
         public string? ClientEmail { get; set; }
         public int? PersonCount { get; set; }
         public DateTime? DateStart { get; set; }
+        public string DateStartStr { get{
+            return DateStart?.ToString("dd.MM.yyyy")??"";
+        } } 
         public DateTime? DateEnd { get; set; }
         public int? HouseId { get; set; }
         public int? RoomId { get; set; }
         public DateTime DateCreated { get; set; }
         public string Comment { get; set; }
         public int? StatusId { get; set; }
-
-
     }
 }

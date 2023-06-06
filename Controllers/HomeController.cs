@@ -17,6 +17,7 @@ namespace Karpaty.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.IsShowAdminLogin = "1";
             ViewBag.IsShowWelcomeTitle = "1";
             return View();
         }

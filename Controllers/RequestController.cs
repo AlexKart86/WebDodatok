@@ -45,12 +45,20 @@ namespace Karpaty.Controllers
                 HouseId = HouseId,
                 PersonCount = PersonCount,
                 Comment = Comment,
-                DateCreated = DateTime.Now
+                DateCreated = DateTime.Now,
+                StatusId = 0
             };
-            await _context.Bookings.AddAsync(model);
-            await _context.SaveChangesAsync();
-            TempData["Message"] = "Ваша заявка успішно подана. Найближчим часом з вами зв'яжеться менеджер для поточнення деталей";
-            return RedirectToAction("Index", "Home");
+            if (DateEnd < DateStart)
+            {
+                TempData["error"] = "Дата від'їзду не може бути меншою дати заїзду";
+            }
+            else
+            {
+                await _context.Bookings.AddAsync(model);
+                await _context.SaveChangesAsync();
+                TempData["message"] = "Ваша заявка успішно подана. Найближчим часом з вами зв'яжеться менеджер для поточнення деталей";
+            }
+            return RedirectToAction("Index");
         }
     }
 }

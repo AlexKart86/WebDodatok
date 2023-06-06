@@ -8,6 +8,7 @@ namespace Karpaty.Models
         public DbSet<Room> Rooms { get; set; } = null!;
         public DbSet<RoomHouse> RoomHouses { get; set; } = null!;
         public DbSet<Booking> Bookings { get; set; } = null!;
+        public DbSet<Admin> DictAdmins { get; set; } = null!;
 
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)

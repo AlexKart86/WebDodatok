@@ -14,7 +14,7 @@
 
 <div class="container">
    <h4 class="add-request">Заповніть форму і ми зв'яжемось з вами якнайшвидше</h4>
-    @using (Html.BeginForm("Create", "Request", FormMethod.Post, new { @class = "needs-validation", @novalidate = "true" }))
+    @using (Html.BeginForm("Create", "Request", FormMethod.Post, new { @class = "needs-validation", @novalidate = "true", id="createRequest" }))
     {
         <div class="row mb-3">
             <div class="col">
@@ -90,6 +90,14 @@
             </div>
         </div>
         
+        <div class="text-danger">
+            @TempData["error"]
+        </div>
+
+        <div class="text-success">
+            @TempData["message"]
+        </div>
+
         <div class="form-row">
             <div class="col-sm-12" style="display: flex; gap: 3em">
                 <button type="submit" class="btn btn-primary">Подати заявку на бронювання місця</button>
@@ -98,27 +106,3 @@
         </div>
     }
 </div>
-
-
-@section Scripts {
-   <script>
-        (() => {
-            'use strict'
-
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            const forms = document.querySelectorAll('.needs-validation')
-
-            // Loop over them and prevent submission
-            Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-
-                    form.classList.add('was-validated')
-                }, false)
-            })
-        })()
-   </script>
-}
