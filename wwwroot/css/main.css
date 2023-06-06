@@ -65,7 +65,7 @@ padding-bottom: 2em;
 	line-height: 1.6em;
 }
 
-.btn {
+.btn-yellow {
 	background: #E5B807;
 	color: #000;
 	font-size: 15px;
@@ -78,7 +78,7 @@ padding-bottom: 2em;
 	transition: all 0.5s ease;
 }
 
-.btn:hover {
+.btn-yellow:hover {
 background: #C39D07;
 }
 
@@ -188,7 +188,7 @@ font-size: 14px;
 /*992px-1200px*/
 @media screen and (max-width: 1200px) {
 .container {
-	width: 960px;
+	width: 990px;
 }
 .wrapper {
 	flex-direction: column;

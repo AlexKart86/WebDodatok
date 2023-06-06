@@ -1,11 +1,19 @@
 ﻿@{
     ViewData["Title"] = "Авторизація";
+    string rowClass = "";
 }
 @model IEnumerable<Karpaty.ViewModels.BookingTableItem>
 
+<style>
+    .container {
+        width: 95% !important;
+        max-width: 95% !important;
+    }
+</style>
+
 <div>
     <h2>Перелік бронювань </h2>
-    <table class="table">
+    <table class="table" >
         <thead>
             <th scope="col">ПІБ клієнта</th>
             <th scope="col">Телефон</th>
@@ -20,7 +28,11 @@
 
     @foreach(var item in Model)
     {
-        <tr>    
+            @if (item.StatusId == 0) rowClass = "";
+            @if (item.StatusId == 1) rowClass = "table-success";
+            @if (item.StatusId == -1) rowClass = "table-secondary";
+
+        <tr class="@rowClass">
             <td>@item.ClientPIB</td>
             <td>@item.ClientPhone</td>
             <td>@item.ClientEmail</td>
@@ -29,6 +41,21 @@
             <td>@item.DateStartStr - @item.DateEndStr</td>
             <td>@item.Comment</td>
             <td>@item.StatusName</td>
+            <td>
+                    @if(item.StatusId == 0)
+                    {
+                        <button type="button" class="btn btn-success">
+                            <i class="bi bi-check2-circle"></i>
+                        </button>
+                        <button type="button" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i>
+                        </button>
+                    }
+                    <button type="button" class="btn btn-danger">
+                        <i class="bi bi-trash"></i>
+
+                    </button>
+            </td>
 
         </tr>
     }
