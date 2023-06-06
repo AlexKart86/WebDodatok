@@ -3,6 +3,7 @@ using Karpaty.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Globalization;
 
 namespace Karpaty.Controllers
 {
@@ -34,31 +35,42 @@ namespace Karpaty.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(string ClientPIB, string ClientPhone, string ClientEmail,
-                    int? PersonCount, DateTime? DateStart, DateTime? DateEnd, int? HouseId, string Comment)
+                    int? PersonCount, string DateStart, string DateEnd, int? HouseId, string Comment)
         {
-            Booking model = new Booking()
+            
+            try
             {
-                ClientEmail = ClientEmail,
-                ClientPhone = ClientPhone,
-                ClientPIB = ClientPIB,
-                DateEnd = DateEnd,
-                DateStart = DateStart,
-                HouseId = HouseId,
-                PersonCount = PersonCount,
-                Comment = Comment,
-                DateCreated = DateTime.Now,
-                StatusId = 0
-            };
-            if (DateEnd < DateStart)
-            {
-                TempData["error"] = "Дата від'їзду не може бути меншою дати заїзду";
+                var dStart = DateTime.ParseExact(DateStart, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                var dEnd = DateTime.ParseExact(DateEnd, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                Booking model = new Booking()
+                {
+                    ClientEmail = ClientEmail,
+                    ClientPhone = ClientPhone,
+                    ClientPIB = ClientPIB,
+                    DateEnd = dEnd,
+                    DateStart = dStart,
+                    HouseId = HouseId,
+                    PersonCount = PersonCount,
+                    Comment = Comment,
+                    DateCreated = DateTime.UtcNow.AddHours(3),
+                    StatusId = 0
+                };
+                if (dStart > dEnd)
+                {
+                    TempData["error"] = "Дата від'їзду не може бути меншою дати заїзду";
+                }
+                else
+                {
+                    await _context.Bookings.AddAsync(model);
+                    await _context.SaveChangesAsync();
+                    TempData["message"] = "Ваша заявка успішно подана. Найближчим часом з вами зв'яжеться менеджер для поточнення деталей";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await _context.Bookings.AddAsync(model);
-                await _context.SaveChangesAsync();
-                TempData["message"] = "Ваша заявка успішно подана. Найближчим часом з вами зв'яжеться менеджер для поточнення деталей";
+                TempData["error"] = ex.ToString();
             }
+            
             return RedirectToAction("Index");
         }
 
