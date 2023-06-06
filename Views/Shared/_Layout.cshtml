@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoverla Туристична база</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />    
+    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Karpaty.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Open+Sans&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/css/datepicker.min.css">
+
+
+</head>
+<body>
+    <header id="header" class="header">
+        <img src="~/img/logo.png" alt="Hoverla" class="logo">
+        @if (ViewBag?.IsShowWelcomeTitle  == "1")
+        {
+            <div class="container">
+                <div class="wrapper">
+                    <div class="offer">
+                        <h1 class="title white-label">
+                            Досить зволікати, їдь у <br> <span> Карпати!</span> <br>
+                            А ми тобі в цьому допоможемо :)
+                        </h1>
+                        <p class="intro white-label">
+                            Туристична база де вас чекають:<br>
+                            Сімейний відпочинок, підйоми в гори, піші прогулянки, екскурсії та екстремальні розваги.
+                        </p>
+                        <a href="/Request/Index" class="btn">
+                            Забронювати місце!
+                        </a>
+                    </div>
+                    <img class="travel" src="~/img/travel.png" alt="forest">
+                </div>
+            </div>
+        }
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <p class="credits">
+                © Kadema Viktoriia Ukraine Kyiv 2022
+            </p>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/js/datepicker-full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/js/locales/uk.js"></script>
+    <script>
+                const getDatePickerTitle = elem => {
+            // From the label or the aria-label
+            const label = elem.nextElementSibling;
+            let titleText = '';
+            if (label && label.tagName === 'LABEL') {
+                titleText = label.textContent;
+            } else {
+                titleText = elem.getAttribute('aria-label') || '';
+            }
+            return titleText;
+        }
+
+
+        $(function () {
+            const elems = document.querySelectorAll('.datepicker_input');
+            for (const elem of elems) {
+                const datepicker = new Datepicker(elem, {
+                    format: 'dd.mm.yyyy',
+                    language: 'uk',
+                    autohide: true,
+                    title: getDatePickerTitle(elem)
+                });
+            }
+        })
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

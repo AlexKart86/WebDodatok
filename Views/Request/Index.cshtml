@@ -1,0 +1,124 @@
+﻿@{
+    ViewData["Title"] = "Подати заявку на бронювання місця";
+}
+@model Karpaty.ViewModels.AddRequestModel
+
+<style>
+    .add-request {
+        color: black;
+        padding: 1em;
+    }
+
+    
+</style>
+
+<div class="container">
+   <h4 class="add-request">Заповніть форму і ми зв'яжемось з вами якнайшвидше</h4>
+    @using (Html.BeginForm("Create", "Request", FormMethod.Post, new { @class = "needs-validation", @novalidate = "true" }))
+    {
+        <div class="row mb-3">
+            <div class="col">
+                <div class="form-group">
+                    @Html.LabelFor(x=>x.ClientPIB)
+                    @Html.TextBoxFor(x => x.ClientPIB, new {@class="form-control", required="true"})
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-lg-5 col-sm-12">
+                <div class="form-group">
+                    @Html.LabelFor(x=>x.ClientPhone)
+                    @Html.TextBoxFor(x => x.ClientPhone, new {@class="form-control", required="true"})
+                </div>
+            </div>
+            <div class="col-lg-5 col-sm-12">
+                <div class="form-group">
+                    @Html.LabelFor(x=>x.ClientEmail)
+                    @Html.TextBoxFor(x => x.ClientEmail, new {@class="form-control", type="email"})
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(x=>x.PersonCount)
+                    @Html.DropDownListFor(x => x.PersonCount, Model.PeopleDropdown, "", new {@class="form-select", required = "true"})
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-6">
+                <div class="form-group">
+                    @Html.LabelFor(x=>x.DateStart)
+                    <div class="input-group">
+                        @Html.TextBoxFor(x => x.DateStart, new {@class="form-control datepicker_input", required = "true"})
+                        <i class="bi bi-calendar-date input-group-text"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    @Html.LabelFor(x=>x.DateEnd)
+                    <div class="input-group">
+                        @Html.TextBoxFor(x => x.DateEnd, new {@class="form-control datepicker_input", required = "true"})
+                        <i class="bi bi-calendar-date input-group-text"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <div class="form-group">
+                    @Html.LabelFor(x=>x.HouseId)
+                    @Html.DropDownListFor(x => x.HouseId,  Model.Houses, "", new {@class ="form-select", required = "true"})
+               </div>
+            </div>
+        </div>
+        @*<div class="row mb-3">
+            <div class="col">
+                <div class="form-group">
+                    @Html.LabelFor(x=>x.RoomId)
+                    @Html.DropDownListFor(x => x.RoomId, Enumerable.Empty<SelectListItem>(), "", new {@class ="form-select input", required = "true"})
+                </div>
+            </div>
+        </div>*@
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    @Html.LabelFor(x=>x.Comment)
+                    @Html.TextAreaFor(x => x.Comment, new {@class ="form-control", @rows="4"})
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="col-sm-12" style="display: flex; gap: 3em">
+                <button type="submit" class="btn btn-primary">Подати заявку на бронювання місця</button>
+                <a href="/" class="btn">На головну сторінку</a>
+            </div>
+        </div>
+    }
+</div>
+
+
+@section Scripts {
+   <script>
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+   </script>
+}
