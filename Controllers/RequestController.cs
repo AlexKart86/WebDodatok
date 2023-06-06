@@ -1,5 +1,6 @@
 ﻿using Karpaty.Models;
 using Karpaty.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -60,5 +61,6 @@ namespace Karpaty.Controllers
             }
             return RedirectToAction("Index");
         }
+
     }
 }

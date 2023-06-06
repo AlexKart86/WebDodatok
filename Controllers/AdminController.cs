@@ -52,7 +52,7 @@ namespace Karpaty.Controllers
                 .Join(_context.Houses, b => b.HouseId, h => h.HouseId, (b, h) =>  
                     new BookingTableItem()
                         {
-                            
+                            RequestId = b.RequestId,
                             ClientPIB = b.ClientPIB,
                             ClientEmail = b.ClientEmail,
                             ClientPhone = b.ClientPhone,
@@ -73,6 +73,32 @@ namespace Karpaty.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> ChangeStatus(int RequestId, int StatusId)
+        {
+            var Booking = _context.Bookings.FirstOrDefault(x => x.RequestId == RequestId);
+            if (Booking != null)
+            {
+                Booking.StatusId = StatusId;
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Bookings");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> DeleteRecord(int RequestId)
+        {
+            var Booking = _context.Bookings.FirstOrDefault(x => x.RequestId == RequestId);
+            if (Booking != null)
+            {
+                _context.Bookings.Remove(Booking);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Bookings");
         }
 
 

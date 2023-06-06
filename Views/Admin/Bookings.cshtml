@@ -44,17 +44,18 @@
             <td>
                     @if(item.StatusId == 0)
                     {
-                        <button type="button" class="btn btn-success">
+                        <a href='@Url.Action("ChangeStatus")?requestId=@item.RequestId&statusId=1' class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Підтвердити бронювання">
                             <i class="bi bi-check2-circle"></i>
-                        </button>
-                        <button type="button" class="btn btn-secondary">
+                        </a>
+                        <a href='@Url.Action("ChangeStatus")?requestId=@item.RequestId&statusId=-1' class="btn btn-secondary"
+                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Скасувати бронювання">
                             <i class="bi bi-x-circle"></i>
-                        </button>
+                        </a>
                     }
-                    <button type="button" class="btn btn-danger">
+                    <a href='@Url.Action("DeleteRecord")?requestId=@item.RequestId' class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Видалити бронювання">
                         <i class="bi bi-trash"></i>
 
-                    </button>
+                    </a>
             </td>
 
         </tr>
